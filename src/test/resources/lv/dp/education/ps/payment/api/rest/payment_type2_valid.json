@@ -1,0 +1,7 @@
+{
+  "type": "TYPE2",
+  "amount": 22.22,
+  "debtorIBAN": "sdf",
+  "creditorIBAN": "asd",
+  "currency": "USD"
+}

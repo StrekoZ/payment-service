@@ -6,5 +6,5 @@ import java.util.UUID;
 
 @Data
 public class PaymentsRestGetModel {
-    private final UUID uuid;
+    private UUID uuid;
 }

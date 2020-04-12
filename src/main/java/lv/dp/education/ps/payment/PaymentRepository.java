@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface PaymentRepository extends JpaRepository<Payment, UUID>{
     List<Payment> findByCreator(String userName);
+
+    Payment findByUuidAndCreator(UUID uuid, String currentUser);
 }

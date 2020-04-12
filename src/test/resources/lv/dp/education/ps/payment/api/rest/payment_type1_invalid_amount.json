@@ -1,0 +1,8 @@
+{
+  "type": "TYPE1",
+  "amount": 11.112,
+  "debtorIBAN": "sdf",
+  "creditorIBAN": "asd",
+  "currency": "EUR",
+  "details": "asd"
+}

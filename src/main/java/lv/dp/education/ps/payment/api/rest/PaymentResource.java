@@ -1,8 +1,9 @@
 package lv.dp.education.ps.payment.api.rest;
 
 import io.swagger.annotations.ApiOperation;
-import lv.dp.education.ps.common.mapping.Mapper;
+import lv.dp.education.ps.common.Mapper;
 import lv.dp.education.ps.payment.PaymentService;
+import lv.dp.education.ps.payment.api.rest.model.PaymentRestGetModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestPutModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentsRestGetModel;
 import lv.dp.education.ps.payment.entity.Payment;
@@ -10,10 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,11 +29,10 @@ public class PaymentResource {
     @ApiOperation(value = "Create payment",
             notes = "Create new payment")
     @Secured("ROLE_CLIENT")
-    public void invest(@RequestBody @Valid PaymentRestPutModel restModel,
-                       HttpServletRequest request,
+    public void createPayment(@RequestBody @Valid PaymentRestPutModel restModel,
                        HttpServletResponse response) {
         Payment entity = mapper.map(restModel, Payment.class);
-        paymentService.createPayment(entity, request.getUserPrincipal().getName());
+        paymentService.createPayment(entity);
         response.setStatus(HttpServletResponse.SC_CREATED);
     }
 
@@ -42,10 +42,25 @@ public class PaymentResource {
             notes = "List payments of a current user"
     )
     @Secured("ROLE_CLIENT")
-    public List<PaymentsRestGetModel> listPayments(HttpServletRequest request) {
-        return paymentService.listPaymentsForClient(request.getUserPrincipal().getName()).stream()
+    public List<PaymentsRestGetModel> listPayments() {
+        return paymentService.listPaymentsForClient().stream()
                 .map(e -> mapper.map(e, PaymentsRestGetModel.class))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "{uuid}")
+    @ApiOperation(
+            value = "Show payment",
+            notes = "Show Payment details"
+    )
+    @Secured("ROLE_CLIENT")
+    public PaymentRestGetModel showPayment(@PathVariable UUID uuid,
+                                           HttpServletResponse response) {
+        var payment = paymentService.getPaymentForClient(uuid);
+        if (payment == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        return mapper.map(payment, PaymentRestGetModel.class);
     }
 
 }

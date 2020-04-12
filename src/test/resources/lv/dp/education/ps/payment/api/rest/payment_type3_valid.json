@@ -1,0 +1,8 @@
+{
+  "type": "TYPE3",
+  "amount": 3.33,
+  "debtorIBAN": "debtorIban3",
+  "creditorIBAN": "creditorIban3",
+  "currency": "EUR",
+  "creditorBankBIC": "BIC"
+}
