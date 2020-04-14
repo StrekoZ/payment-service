@@ -20,7 +20,7 @@ Application has hardcoded users:
 - User: client2, pass: 123
 
 ## Requirements
-Requirements are described at []()
+Requirements are described at [requirements.docx](docs/requirements.docx)
 
 ## Implemented functionality
 - Payment creation
@@ -32,4 +32,4 @@ Requirements are described at []()
 ### Client country logging
 
 ### Notification
-Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. For common async processing of all payment notifications [BaseNotificationEventListener](src/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created 
+Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. For common async processing of all payment notifications [BaseNotificationEventListener](src/main/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created 
