@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lv.dp.education.ps.payment.cancellation.CancellationEntity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,7 +20,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class PaymentEntity {
-    public enum Currency {USD, EUR}
 
     public enum Type {TYPE1, TYPE2, TYPE3}
 
@@ -36,7 +36,7 @@ public class PaymentEntity {
     private String creator;
 
     @Column(nullable = false)
-    private LocalDateTime creatDate;
+    private LocalDateTime createDate;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
@@ -58,4 +58,7 @@ public class PaymentEntity {
     private String details;
 
     private String creditorBankBIC;
+
+    @OneToOne(mappedBy = "payment", cascade = CascadeType.ALL)
+    private CancellationEntity cancellation;
 }

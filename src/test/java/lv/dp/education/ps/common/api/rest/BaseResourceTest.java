@@ -15,7 +15,7 @@ import java.io.IOException;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BaseResourceTest {
+public abstract class BaseResourceTest {
     @LocalServerPort
     private int port;
 

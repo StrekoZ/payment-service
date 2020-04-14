@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Repository
 public interface PaymentRepository extends JpaRepository<PaymentEntity, UUID> {
-    List<PaymentEntity> findByCreator(String userName);
+    List<PaymentEntity> findByCreatorAndCancellationIsNull(String userName);
 
     PaymentEntity findByUuidAndCreator(UUID uuid, String currentUser);
 }

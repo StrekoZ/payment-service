@@ -8,7 +8,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 public class UserIPConverter extends ClassicConverter {
     @Override
     public String convert(ILoggingEvent event) {
-        return ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes())
-                .getRequest().getRemoteAddr();
+        try {
+            return ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                    .getRequest().getRemoteAddr();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

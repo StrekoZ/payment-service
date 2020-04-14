@@ -1,1 +1,1 @@
-# paymentEntity-service
+# payment-service

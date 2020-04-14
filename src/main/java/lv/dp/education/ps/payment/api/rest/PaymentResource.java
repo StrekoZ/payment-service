@@ -1,7 +1,7 @@
 package lv.dp.education.ps.payment.api.rest;
 
 import io.swagger.annotations.ApiOperation;
-import lv.dp.education.ps.common.Mapper;
+import lv.dp.education.ps.common.mapping.Mapper;
 import lv.dp.education.ps.payment.PaymentEntity;
 import lv.dp.education.ps.payment.PaymentService;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestGetModel;
@@ -43,7 +43,7 @@ public class PaymentResource {
     )
     @Secured("ROLE_CLIENT")
     public List<PaymentsRestGetModel> listPayments() {
-        return paymentService.listPaymentsForClient().stream()
+        return paymentService.listActivePaymentsForClient().stream()
                 .map(e -> mapper.map(e, PaymentsRestGetModel.class))
                 .collect(Collectors.toList());
     }

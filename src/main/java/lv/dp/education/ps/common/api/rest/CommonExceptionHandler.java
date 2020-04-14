@@ -1,6 +1,8 @@
 package lv.dp.education.ps.common.api.rest;
 
 import lombok.extern.slf4j.Slf4j;
+import lv.dp.education.ps.payment.cancellation.exception.CancellationNotPossibleException;
+import lv.dp.education.ps.payment.cancellation.exception.PaymentAlreadyCancelledException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,18 +12,17 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice
-@RestController
 @Slf4j
-public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class CommonExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public final ResponseEntity<ErrorRestModel> handleIllegalArgumentException(IllegalArgumentException e, WebRequest request) {
         return new ResponseEntity<>(
@@ -59,6 +60,20 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                         e.getMessage(),
                         null
                 ),
+                BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PaymentAlreadyCancelledException.class)
+    public final ResponseEntity<ErrorRestModel> handlePaymentAlreadyCancelledException(PaymentAlreadyCancelledException e, WebRequest request) {
+        return new ResponseEntity<>(
+                new ErrorRestModel("Payment already is cancelled", null),
+                BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CancellationNotPossibleException.class)
+    public final ResponseEntity<ErrorRestModel> handleCancellationNotPossibleException(CancellationNotPossibleException e, WebRequest request) {
+        return new ResponseEntity<>(
+                new ErrorRestModel("Payment can't be cancelled", Collections.singletonList(e.getMessage())),
                 BAD_REQUEST);
     }
 

@@ -3,15 +3,14 @@
     <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="lv.dp.education.ps.common.logging.PatternLayoutWithUserContext">
             <Pattern>
-                %d{HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) [%user %userIp %userCountry] %logger{1}.%M - %msg%n
+                %d{HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) [%user %userIp %userCountry] %logger{1}.%M: %msg%n
             </Pattern>
         </layout>
     </appender>
 
-    <!-- LOG everything at INFO level -->
-    <root level="info">
-        <appender-ref ref="Console" />
-    </root>
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG"/>
 
-    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG" />
+    <root level="INFO">
+        <appender-ref ref="Console"/>
+    </root>
 </configuration>

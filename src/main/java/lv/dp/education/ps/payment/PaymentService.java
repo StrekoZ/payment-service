@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -18,16 +19,18 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+    @Autowired
+    private Clock clock;
 
     public void createPayment(PaymentEntity entity) {
         entity.setCreator(userService.getCurrentUser());
-        entity.setCreatDate(LocalDateTime.now());
+        entity.setCreateDate(LocalDateTime.now(clock));
         paymentRepository.save(entity);
         notifyAboutCreatedPayment(entity);
     }
 
-    public List<PaymentEntity> listPaymentsForClient() {
-        return paymentRepository.findByCreator(userService.getCurrentUser());
+    public List<PaymentEntity> listActivePaymentsForClient() {
+        return paymentRepository.findByCreatorAndCancellationIsNull(userService.getCurrentUser());
     }
 
     public PaymentEntity getPaymentForClient(UUID uuid) {
