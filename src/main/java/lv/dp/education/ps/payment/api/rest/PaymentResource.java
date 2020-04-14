@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiOperation;
 import lv.dp.education.ps.common.mapping.Mapper;
 import lv.dp.education.ps.payment.PaymentEntity;
 import lv.dp.education.ps.payment.PaymentService;
+import lv.dp.education.ps.payment.api.rest.doc.PaymentRestPutModelExample;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestGetModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestPutModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentsRestGetModel;
@@ -27,10 +28,14 @@ public class PaymentResource {
 
     @PutMapping
     @ApiOperation(value = "Create payment",
-            notes = "Create new payment")
+            notes = "Create new payment. Example requests: \n" +
+                    PaymentRestPutModelExample.exampleType1 + "\n" +
+                    PaymentRestPutModelExample.exampleType2 + "\n" +
+                    PaymentRestPutModelExample.exampleType3 )
     @Secured("ROLE_CLIENT")
-    public void createPayment(@RequestBody @Valid PaymentRestPutModel restModel,
-                       HttpServletResponse response) {
+    public void createPayment(
+            @RequestBody @Valid PaymentRestPutModel restModel,
+            HttpServletResponse response) {
         var entity = mapper.map(restModel, PaymentEntity.class);
         paymentService.createPayment(entity);
         response.setStatus(HttpServletResponse.SC_CREATED);
@@ -38,8 +43,8 @@ public class PaymentResource {
 
     @GetMapping
     @ApiOperation(
-            value = "List payments",
-            notes = "List payments of a current user"
+            value = "List active payments",
+            notes = "List active payments of a current user"
     )
     @Secured("ROLE_CLIENT")
     public List<PaymentsRestGetModel> listPayments() {
@@ -50,7 +55,7 @@ public class PaymentResource {
 
     @GetMapping(path = "{uuid}")
     @ApiOperation(
-            value = "Show payment",
+            value = "Show payment details",
             notes = "Show Payment details"
     )
     @Secured("ROLE_CLIENT")
