@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class RestNotificationEventListener extends BaseNotificationEventListener {
     @Override
     protected void processNotification(PaymentEntity source) throws NotificationFailedException {
-        // todo rest call here
+        // just for example of multiple notification listeners. No real call here
     }
 
     @Override

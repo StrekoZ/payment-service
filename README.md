@@ -20,7 +20,7 @@ Application has hardcoded users:
 - User: client2, pass: 123
 
 ## Requirements
-Requirements are described at [requirements.docx](docs/requirements.docx)
+Requirements are described at [requirements.docx](doc/requirements.docx)
 
 ## Implemented functionality
 - Payment creation
@@ -30,6 +30,11 @@ Requirements are described at [requirements.docx](docs/requirements.docx)
 - Notification
 
 ### Client country logging
+All HTTP requests are intercepted with default Spring `CommonsRequestLoggingFilter` (see [RequestLoggingFilterConfig](src/main/java/lv/dp/education/ps/configuration/RequestLoggingFilterConfig.java))
+
+To avoid application delays - country resolving and print is asynchronous. Countries are also cached in-memory by requested IP address (see [CacheConfig](src/main/java/lv/dp/education/ps/configuration/CacheConfig.java) and [CountryResolver](src/main/java/lv/dp/education/ps/common/country/CountryResolver.java) )
 
 ### Notification
-Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. For common async processing of all payment notifications [BaseNotificationEventListener](src/main/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created 
+Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. 
+For common async processing of all payment notifications [BaseNotificationEventListener](src/main/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created
+

@@ -17,5 +17,4 @@ public class AsyncCountryLogger {
     public void printRequestCountry(String ip, UUID requestUUID) {
         log.debug("Request {} country is {}", requestUUID, countryResolver.resolveCountry(ip));
     }
-
 }

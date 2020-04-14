@@ -5,7 +5,6 @@ import lv.dp.education.ps.configuration.CacheConfig;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 
-
 @Slf4j
 public abstract class CountryResolver {
     protected abstract String getCountryByIp(String ip);
