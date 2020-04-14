@@ -12,3 +12,10 @@ spring:
 #    properties:
 #      hibernate:
 #        format_sql: true
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %logger{1}.%M - %msg%n"
+  level:
+    lv.dp: DEBUG
+    org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
