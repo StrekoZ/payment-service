@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import lombok.Data;
-import lv.dp.education.ps.payment.entity.PaymentType;
+import lv.dp.education.ps.payment.PaymentEntity;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -32,5 +32,5 @@ public abstract class PaymentRestPutModel {
     protected String creditorIBAN;
 
     @JsonIgnore
-    public abstract PaymentType getType();
+    public abstract PaymentEntity.Type getType();
 }

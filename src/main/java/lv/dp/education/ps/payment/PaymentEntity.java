@@ -1,37 +1,46 @@
-package lv.dp.education.ps.payment.entity;
+package lv.dp.education.ps.payment;
 
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
 @Table(name = "payment")
-@ToString(exclude = {})
-@EqualsAndHashCode(exclude = {})
-@Getter @Setter
-@Builder
-@AllArgsConstructor @NoArgsConstructor
-public class Payment {
+@ToString
+@EqualsAndHashCode
+@Getter
+@Setter
+public class PaymentEntity {
+    public enum Currency {USD, EUR}
+
+    public enum Type {TYPE1, TYPE2, TYPE3}
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Type(type = "uuid-char")
+    @org.hibernate.annotations.Type(type = "uuid-char")
     private UUID uuid;
 
     @Column(nullable = false)
     private String creator;
 
     @Column(nullable = false)
+    private LocalDateTime creatDate;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private PaymentType type;
+    private Type type;
 
     @Column(nullable = false)
     private BigDecimal amount;

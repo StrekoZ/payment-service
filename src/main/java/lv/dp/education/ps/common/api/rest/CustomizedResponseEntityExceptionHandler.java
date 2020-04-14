@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,6 +48,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                 new ErrorRestModel(
                         "Validation failed for argument",
                         e.getBindingResult().getAllErrors().stream().map(ObjectError::toString).collect(Collectors.toList())
+                ),
+                BAD_REQUEST);
+    }
+
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException e, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        //todo more detailed parsing
+        return new ResponseEntity<>(
+                new ErrorRestModel(
+                        e.getMessage(),
+                        null
                 ),
                 BAD_REQUEST);
     }

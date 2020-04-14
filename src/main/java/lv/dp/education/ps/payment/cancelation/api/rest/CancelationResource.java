@@ -1,38 +1,38 @@
-package lv.dp.education.ps.payment.api.rest;
+package lv.dp.education.ps.payment.cancelation.api.rest;
 
 import io.swagger.annotations.ApiOperation;
 import lv.dp.education.ps.common.Mapper;
-import lv.dp.education.ps.payment.PaymentEntity;
 import lv.dp.education.ps.payment.PaymentService;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestGetModel;
-import lv.dp.education.ps.payment.api.rest.model.PaymentRestPutModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentsRestGetModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("payment")
-public class PaymentResource {
+@RequestMapping("payment/{uuid}/cancelation")
+public class CancelationResource {
     @Autowired
     private PaymentService paymentService;
     @Autowired
     private Mapper mapper;
 
     @PutMapping
-    @ApiOperation(value = "Create payment",
-            notes = "Create new payment")
+    @ApiOperation(value = "Cancel payment",
+            notes = "Create payment cancelation")
     @Secured("ROLE_CLIENT")
-    public void createPayment(@RequestBody @Valid PaymentRestPutModel restModel,
+    public void createPayment(@PathVariable UUID uuid,
                        HttpServletResponse response) {
-        var entity = mapper.map(restModel, PaymentEntity.class);
-        paymentService.createPayment(entity);
+        var payment = paymentService.getPaymentForClient(uuid);
+        if (payment == null) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+        paymentService.cancelPayment(payment);
         response.setStatus(HttpServletResponse.SC_CREATED);
     }
 

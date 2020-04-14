@@ -1,9 +1,8 @@
 package lv.dp.education.ps.payment.api.rest;
 
+import lv.dp.education.ps.payment.PaymentEntity;
 import lv.dp.education.ps.payment.api.rest.model.PaymentRestGetModel;
 import lv.dp.education.ps.payment.api.rest.model.PaymentsRestGetModel;
-import lv.dp.education.ps.payment.entity.Currency;
-import lv.dp.education.ps.payment.entity.PaymentType;
 import org.apache.commons.io.IOUtils;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.junit.Before;
@@ -27,7 +26,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PaymentResourceTest {
+public class PaymentEntityResourceTest {
 
     @LocalServerPort
     private int port;
@@ -77,11 +76,11 @@ public class PaymentResourceTest {
         assertEquals(404, response.getStatus());
 
         PaymentRestGetModel payment = service2.path("payment/" + payments.get(0).getUuid()).request().get(PaymentRestGetModel.class);
-        assertEquals(PaymentType.TYPE3, payment.getType());
+        assertEquals(PaymentEntity.Type.TYPE3, payment.getType());
         assertEquals(new BigDecimal("3.33"), payment.getAmount());
         assertEquals("debtorIban3", payment.getDebtorIBAN());
         assertEquals("creditorIban3", payment.getCreditorIBAN());
-        assertEquals(Currency.EUR, payment.getCurrency());
+        assertEquals(PaymentEntity.Currency.EUR, payment.getCurrency());
         assertEquals("BIC", payment.getCreditorBankBIC());
     }
 
