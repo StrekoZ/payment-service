@@ -22,10 +22,14 @@ public class Mapper {
 
     @PostConstruct
     public void init() {
+        init(configurations);
+    }
+
+    public void init(Set<MappingConfiguration> mappingConfigurations) {
         mapperFactory = new DefaultMapperFactory.Builder().build();
 
-        if (configurations != null) {
-            configurations.forEach(config -> config.addClassMap(mapperFactory));
+        if (mappingConfigurations != null) {
+            mappingConfigurations.forEach(config -> config.addClassMap(mapperFactory));
         }
     }
 }
