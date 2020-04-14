@@ -1,7 +1,7 @@
 package lv.dp.education.ps.payment.api.rest.doc;
 
 public class PaymentRestPutModelExample {
-    public static final String exampleType1 = "<pre>{\n" +
+    public static final String EXAMPLE_TYPE1 = "<pre>{\n" +
             "  \"type\": \"TYPE1\",\n" +
             "  \"amount\": 11.11,\n" +
             "  \"debtorIBAN\": \"sdf\",\n" +
@@ -10,7 +10,7 @@ public class PaymentRestPutModelExample {
             "  \"details\": \"asd\"\n" +
             "}</pre>";
 
-    public static final String exampleType2 = "<pre>{\n" +
+    public static final String EXAMPLE_TYPE2 = "<pre>{\n" +
             "  \"type\": \"TYPE2\",\n" +
             "  \"amount\": 22.22,\n" +
             "  \"debtorIBAN\": \"sdf\",\n" +
@@ -18,7 +18,7 @@ public class PaymentRestPutModelExample {
             "  \"currency\": \"USD\"\n" +
             "}</pre>";
 
-    public static final String exampleType3 = "<pre>{\n" +
+    public static final String EXAMPLE_TYPE3 = "<pre>{\n" +
             "  \"type\": \"TYPE3\",\n" +
             "  \"amount\": 3.33,\n" +
             "  \"debtorIBAN\": \"debtorIban3\",\n" +
