@@ -13,14 +13,14 @@
 `mvn spring-boot:run`
 
 ## Work with application
-Once application is launched open [http://localhost:8080/]() in your browser. There will be redirect to Swagger UI
+Once application is launched open http://localhost:8080/ in your browser. There will be redirect to Swagger UI
 
 Application has hardcoded users:
 - User: client1, pass: 123
 - User: client2, pass: 123
 
 ## Requirements
-Requirements are described at [docs/requirements.docx]()
+Requirements are described at []()
 
 ## Implemented functionality
 - Payment creation
@@ -32,4 +32,4 @@ Requirements are described at [docs/requirements.docx]()
 ### Client country logging
 
 ### Notification
-Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. For common async processing of all payment notifications [src/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java](BaseNotificationEventListener) is created 
+Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. For common async processing of all payment notifications [BaseNotificationEventListener](src/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created 
