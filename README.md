@@ -21,7 +21,7 @@ Requirements are described at [requirements.docx](doc/requirements.docx)
 ## Implemented functionality
 - Payment creation
 - Payment cancellation
-- Payments querying (only list with details. without filtering)
+- Payments querying (only list with active payments and details by UUID. Filtering is not impemented. As well you can't list cancelled payments)
 - Client country logging
 - Notification
 
@@ -32,5 +32,5 @@ To avoid application delays - country resolving and print is asynchronous. Count
 
 ### Notification
 Payment notifications are implemented through Spring `ApplicationListener<NotificationEvent>`. 
-For common async processing of all payment notifications [BaseNotificationEventListener](src/main/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java) is created
+Base of notification processing: [BaseNotificationEventListener](src/main/java/lv/dp/education/ps/notification/listener/BaseNotificationEventListener.java)
 
