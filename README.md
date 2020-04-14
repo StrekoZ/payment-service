@@ -4,10 +4,6 @@
 - Java 11
 - Maven 3.2.5+
 
-**Build project**
-
-`mvn clean install`
-
 **Launch application locally**
 
 `mvn spring-boot:run`

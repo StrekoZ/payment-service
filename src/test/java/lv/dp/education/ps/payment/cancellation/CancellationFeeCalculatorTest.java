@@ -33,7 +33,6 @@ public class CancellationFeeCalculatorTest {
     @Before
     public void before() {
         when(clock.getZone()).thenReturn(ZoneId.systemDefault());
-
         when(coefficientProvider.coefficient(any())).thenReturn(new BigDecimal("0.1"));
     }
 

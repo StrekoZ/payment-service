@@ -28,9 +28,9 @@ public class PaymentResource {
 
     @PutMapping
     @ApiOperation(value = "Create payment",
-            notes = "Create new payment. Example requests: \n" +
-                    PaymentRestPutModelExample.exampleType1 + "\n" +
-                    PaymentRestPutModelExample.exampleType2 + "\n" +
+            notes = "Create new payment. Example requests: \n\n" +
+                    PaymentRestPutModelExample.exampleType1 + "\n or \n" +
+                    PaymentRestPutModelExample.exampleType2 + "\n or \n" +
                     PaymentRestPutModelExample.exampleType3 )
     @Secured("ROLE_CLIENT")
     public void createPayment(

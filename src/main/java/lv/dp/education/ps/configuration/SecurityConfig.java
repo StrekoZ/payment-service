@@ -1,6 +1,5 @@
 package lv.dp.education.ps.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,22 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private DataSource dataSource;
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
+        auth.inMemoryAuthentication()
                 .withUser(User.withUsername("client1")
                         .password(encoder().encode("123"))
                         .roles("CLIENT")
@@ -34,9 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser(User.withUsername("client2")
                         .password(encoder().encode("123"))
                         .roles("CLIENT")
-                )
-                .dataSource(dataSource)
-                .withDefaultSchema();
+                );
     }
 
     @Bean
@@ -46,9 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsManager userDetailsManager() {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
-        manager.setDataSource(dataSource);
-        return manager;
+        return new InMemoryUserDetailsManager();
     }
 
     @Override
